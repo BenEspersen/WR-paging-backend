@@ -11,6 +11,7 @@ def handler():
         return {"status": "failed", "message": "username must contain a dot"}
     service = DatabaseService()
     loginStatus = service.Login(vorname=usernameArray[0], nachname=usernameArray[1], password=data.get("password"))
+    service.drop()
     if loginStatus[0]:
         return {"status": "successful", "message": "login successful", "token": loginStatus[1]}
     else:

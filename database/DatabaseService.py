@@ -1,6 +1,6 @@
 import mysql.connector
 from utils.Generation import generateToken
-from database.actions import FetchAllTechniker, LoginAction, AddUserToken
+from database.actions import FetchAllTechniker, LoginAction, AddUserToken, CheckPermissionViaToken, InsertTechniker
 
 
 class DatabaseService(object):
@@ -30,4 +30,10 @@ class DatabaseService(object):
             return True, token
         else:
             return False, None
+
+    def CheckPermissionViaToken(self, token, owner):
+        return CheckPermissionViaToken.execute(self.conn, token, owner)
+
+    def InsertTechniker(self, user_info):
+        InsertTechniker.execute(self.conn, user_info=user_info)
 
