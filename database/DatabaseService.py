@@ -1,6 +1,7 @@
 import mysql.connector
 from utils.Generation import generateToken
 from database.actions import FetchAllTechniker, LoginAction, AddUserToken, CheckPermissionViaToken, InsertTechniker
+from database.actions import UpdateTechniker
 
 
 class DatabaseService(object):
@@ -36,4 +37,7 @@ class DatabaseService(object):
 
     def InsertTechniker(self, user_info):
         InsertTechniker.execute(self.conn, user_info=user_info)
+
+    def UpdateTechniker(self, user, category, value):
+        UpdateTechniker.execute(conn=self.conn, token_owner=user, category=category, value=value)
 
