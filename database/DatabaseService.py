@@ -1,5 +1,6 @@
 import mysql.connector
-from database.actions import FetchAllTechniker
+from utils.Generation import generateToken
+from database.actions import FetchAllTechniker, LoginAction, AddUserToken
 
 
 class DatabaseService(object):
@@ -19,3 +20,14 @@ class DatabaseService(object):
 
     def FetchAllTechniker(self):
         return FetchAllTechniker.execute(self.conn)
+
+    def Login(self, vorname, nachname, password):
+        status = LoginAction.execute(self.conn, vorname=vorname, name=nachname, pwd=password)
+        if status:
+            token = generateToken()
+            owner = vorname + '.' + nachname
+            AddUserToken.execute(self.conn, owner=owner, token=token)
+            return True, token
+        else:
+            return False, None
+
