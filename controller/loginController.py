@@ -7,6 +7,8 @@ def handler():
     if not checkRequestBody(data):
         return {"status": "error", "message": "your json request body is wrong"}
     usernameArray = str(data.get("username")).split(".")
+    if len(usernameArray) != 2:
+        return {"status": "failed", "message": "username must contain a dot"}
     service = DatabaseService()
     loginStatus = service.Login(vorname=usernameArray[0], nachname=usernameArray[1], password=data.get("password"))
     if loginStatus[0]:
@@ -16,4 +18,7 @@ def handler():
 
 
 def checkRequestBody(data):
-    return data.get('username') is not None and data.get('password') is not None
+    if data is not None:
+        return data.get('username') is not None and data.get('password') is not None
+    else:
+        return False
