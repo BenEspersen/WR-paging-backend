@@ -1,7 +1,7 @@
 from FlaskWrapper import FlaskAppWrapper
 from controller import DefaultController, loginController, createUserController, editUserController, addTaskController
 from controller import acceptTaskController, listAllTasksForTechnikerController, closeTaskController
-from controller import getOnlineTechnikerController
+from controller import getOnlineTechnikerController, getTechnikerWithoutTaskController
 
 if __name__ == '__main__':
     app = FlaskAppWrapper()
@@ -16,5 +16,7 @@ if __name__ == '__main__':
                      handler=listAllTasksForTechnikerController.handler, methods=['POST'])
     app.add_endpoint(endpoint="/closeTask", endpoint_name="/closeTask", handler=closeTaskController.handler, methods=['DELETE'])
     app.add_endpoint(endpoint="/getOnlineTechniker", endpoint_name="/getOnlineTechniker", handler=getOnlineTechnikerController.handler, methods=['POST'])
+    app.add_endpoint(endpoint="/getOnlineTechnikerWithoutTask", endpoint_name="/getOnlineTechnikerWithoutTask",
+                     handler=getTechnikerWithoutTaskController.handler, methods=['POST'])
 
     app.run()
