@@ -1,10 +1,12 @@
+from flask import Flask
 from FlaskWrapper import FlaskAppWrapper
 from controller import DefaultController, loginController, createUserController, editUserController, addTaskController
 from controller import acceptTaskController, listAllTasksForTechnikerController, closeTaskController
 from controller import getOnlineTechnikerController, getTechnikerWithoutTaskController
+from controller import fastpagingController, logoutController
 
 if __name__ == '__main__':
-    app = FlaskAppWrapper()
+    app = FlaskAppWrapper(Flask(__name__))
 
     app.add_endpoint(endpoint="/", endpoint_name="/", handler=DefaultController.handler, methods=['GET'])
     app.add_endpoint(endpoint="/login", endpoint_name="/login", handler=loginController.handler, methods=['POST'])
@@ -18,5 +20,7 @@ if __name__ == '__main__':
     app.add_endpoint(endpoint="/getOnlineTechniker", endpoint_name="/getOnlineTechniker", handler=getOnlineTechnikerController.handler, methods=['POST'])
     app.add_endpoint(endpoint="/getOnlineTechnikerWithoutTask", endpoint_name="/getOnlineTechnikerWithoutTask",
                      handler=getTechnikerWithoutTaskController.handler, methods=['POST'])
+    app.add_endpoint(endpoint="/fastpageing", endpoint_name="/fastpaging", handler=fastpagingController.handler, methods=['POST'])
+    app.add_endpoint(endpoint="/logout", endpoint_name="/logout", handler=logoutController.handler, methods=['POST'])
 
     app.run()
