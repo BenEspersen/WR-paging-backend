@@ -4,7 +4,7 @@ from database.models.Techniker import TechnikerModel
 
 def execute(conn, aufgabe):
     with closing(conn.cursor(buffered=True)) as cursor:
-        query = "select * from techniker where aktuellerAuftrag='' and Aufgaben LIKE '%" + aufgabe + "%'"
+        query = "select * from techniker where aktuellerAuftrag='' and Aufgaben LIKE '%" + aufgabe + "%' and status=1"
         cursor.execute(query)
         mdl = cursor.fetchall()
     techniker = []
