@@ -1,7 +1,8 @@
 import mysql.connector
 from utils.Generation import generateToken
 from database.actions import FetchAllTechniker, LoginAction, AddUserToken, CheckPermissionViaToken, InsertTechniker
-from database.actions import UpdateTechniker
+from database.actions import UpdateTechniker, FetchTechniker, AddTask, GetFreeTechnikerWithPreferedTask
+from database.actions import GetFreeTechnikerWithAusbildungForTask
 
 
 class DatabaseService(object):
@@ -41,3 +42,14 @@ class DatabaseService(object):
     def UpdateTechniker(self, user, category, value):
         UpdateTechniker.execute(conn=self.conn, token_owner=user, category=category, value=value)
 
+    def FetchTechniker(self, username):
+        return FetchTechniker.execute(self.conn, username)
+
+    def addTask(self, name, aufgabe, owner, date=None, treffpunkt=None):
+        AddTask.execute(self.conn, name, aufgabe, owner, date, treffpunkt)
+
+    def getFreeTechnikerWithPreferedTask(self, aufgabe):
+        return GetFreeTechnikerWithPreferedTask.execute(self.conn, aufgabe)
+
+    def getFreeTechnikerWithAusbildungForTask(self, ausbildung):
+        return GetFreeTechnikerWithAusbildungForTask.execute(self.conn, ausbildung)
