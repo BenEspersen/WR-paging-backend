@@ -8,11 +8,9 @@ def handler():
         return {"status": "error", "message": "your json request body is wrong"}
     dbService = DatabaseService()
     if dbService.CheckPermissionViaToken(data.get("access_token"), data.get("token_owner")):
-        auftragsID = dbService.getActiveTaskOfUser(data.get("token_owner"))
-        dbService.finishTask(auftragsID)
-        dbService.updateTechnikerTask('', data.get("token_owner"))
+        techniker = dbService.getOnlineTechniker()
         dbService.drop()
-        return {"status": "successful", "message": "successfully closed task"}
+        return {"status": "successful", "techniker": techniker}
     else:
         dbService.drop()
         return {"status": "failed", "message": "login credentials wrong"}

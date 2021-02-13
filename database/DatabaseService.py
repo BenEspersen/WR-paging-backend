@@ -4,6 +4,7 @@ from database.actions import FetchAllTechniker, LoginAction, AddUserToken, Check
 from database.actions import UpdateTechniker, FetchTechniker, AddTask, GetFreeTechnikerWithPreferedTask
 from database.actions import GetFreeTechnikerWithAusbildungForTask, AcceptTask, SetTechnikerAuftrag
 from database.actions import ListAllTasksForTechniker, FinishTask, GetActiveTaskOfTechniker
+from database.actions import FetchAllOnlinetechniker
 
 
 class DatabaseService(object):
@@ -70,4 +71,5 @@ class DatabaseService(object):
     def getActiveTaskOfUser(self, username):
         return GetActiveTaskOfTechniker.execute(self.conn, username)
 
-
+    def getOnlineTechniker(self):
+        return FetchAllOnlinetechniker.execute(self.conn)
