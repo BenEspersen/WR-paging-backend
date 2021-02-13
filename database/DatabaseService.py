@@ -3,6 +3,7 @@ from utils.Generation import generateToken
 from database.actions import FetchAllTechniker, LoginAction, AddUserToken, CheckPermissionViaToken, InsertTechniker
 from database.actions import UpdateTechniker, FetchTechniker, AddTask, GetFreeTechnikerWithPreferedTask
 from database.actions import GetFreeTechnikerWithAusbildungForTask, AcceptTask, SetTechnikerAuftrag
+from database.actions import ListAllTasksForTechniker
 
 
 class DatabaseService(object):
@@ -59,3 +60,6 @@ class DatabaseService(object):
 
     def updateTechnikerTask(self, taskID, username):
         SetTechnikerAuftrag.execute(self.conn, taskID, username)
+
+    def listAllAuftraegeForTechniker(self, technikerID):
+        return ListAllTasksForTechniker.execute(self.conn, technikerID)
