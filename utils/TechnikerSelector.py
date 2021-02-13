@@ -8,10 +8,11 @@ class TechnikerSelector(object):
 
     def getTechniker(self, aufgabe):
         aufgabenSpecific = self.dbService.getFreeTechnikerWithPreferedTask(aufgabe=aufgabe)
-        if aufgabenSpecific is not None:
-            return aufgabenSpecific.ID
+        if len(aufgabenSpecific) is not 0:
+            return aufgabenSpecific
+
         ausbildungsSpecific = self.dbService.getFreeTechnikerWithAusbildungForTask(ausbildung=aufgabe)
-        if ausbildungsSpecific is not None:
-            return ausbildungsSpecific.ID
+        if len(aufgabenSpecific) is not 0:
+            return ausbildungsSpecific
         return None
 

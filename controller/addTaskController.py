@@ -10,11 +10,12 @@ def handler():
     tokenStatus = dbService.CheckPermissionViaToken(data.get("access_token"), data.get("token_owner"))
     if tokenStatus:
         selector = TechnikerSelector(dbService)
-        technikerID = selector.getTechniker(data.get("aufgabe"))
-        if technikerID is None:
+        technikerIDs = selector.getTechniker(data.get("aufgabe"))
+        if technikerIDs is None:
             dbService.drop()
             return {"status": "warning", "message": "Aktuell ist leider kein freier Techniker verfügbar"}
-        dbService.addTask(data.get("name"), data.get("aufgabe"), technikerID, data.get("date"), data.get("treffpunkt"))
+        dbService.addTask(data.get("name"), data.get("aufgabe"), str(technikerIDs), data.get("date"), data.get("treffpunkt"))
+        # send notifications to techniker
         dbService.drop()
         return {"status": "successful", "message": "successfully created Task for techniker"}
     else:

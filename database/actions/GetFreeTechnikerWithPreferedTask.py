@@ -6,8 +6,8 @@ def execute(conn, aufgabe):
     with closing(conn.cursor(buffered=True)) as cursor:
         query = "select * from techniker where aktuellerAuftrag='' and Aufgaben LIKE '%" + aufgabe + "%'"
         cursor.execute(query)
-        mdl = cursor.fetchone()
-    if mdl is None:
-        return None
-    else:
-        return TechnikerModel(mdl)
+        mdl = cursor.fetchall()
+    techniker = []
+    for tech in mdl:
+        techniker.append(TechnikerModel(tech).ID)
+    return techniker
