@@ -29,3 +29,5 @@ def checkRequest(data):
     if data is not None:
         return data.get("access_token") is not None and data.get("token_owner") is not None and \
                data.get("name") is not None and data.get("aufgabe")
+    else:
+        return False

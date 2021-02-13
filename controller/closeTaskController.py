@@ -19,4 +19,6 @@ def handler():
 
 
 def checkRequest(data):
-    return data.get("access_token") is not None and data.get("token_owner") is not None
+    if data is not None:
+        return data.get("access_token") is not None and data.get("token_owner") is not None
+    return False
