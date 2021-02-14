@@ -3,7 +3,7 @@ from FlaskWrapper import FlaskAppWrapper
 from controller import DefaultController, loginController, createUserController, editUserController, addTaskController
 from controller import acceptTaskController, listAllTasksForTechnikerController, closeTaskController
 from controller import getOnlineTechnikerController, getTechnikerWithoutTaskController
-from controller import fastpagingController, logoutController
+from controller import fastpagingController, logoutController, addAusbildungToTechniker
 
 if __name__ == '__main__':
     app = FlaskAppWrapper(Flask(__name__))
@@ -22,5 +22,7 @@ if __name__ == '__main__':
                      handler=getTechnikerWithoutTaskController.handler, methods=['POST'])
     app.add_endpoint(endpoint="/fastpageing", endpoint_name="/fastpaging", handler=fastpagingController.handler, methods=['POST'])
     app.add_endpoint(endpoint="/logout", endpoint_name="/logout", handler=logoutController.handler, methods=['POST'])
+    app.add_endpoint(endpoint="/addAusbildungToTechniker", endpoint_name="/addAusbildungToTechniker", handler=addAusbildungToTechniker.handler, methods=['PATCH'])
+
 
     app.run()

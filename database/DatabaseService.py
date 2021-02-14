@@ -5,7 +5,7 @@ from database.actions import UpdateTechniker, FetchTechniker, AddTask, GetFreeTe
 from database.actions import GetFreeTechnikerWithAusbildungForTask, AcceptTask, SetTechnikerAuftrag
 from database.actions import ListAllTasksForTechniker, FinishTask, GetActiveTaskOfTechniker
 from database.actions import FetchAllOnlinetechniker, FetchOnlineTechnikerWithoutTask, removeTokenFromDatabase
-from database.actions import SetOnlineStatus, GetNumOfTokenForUser
+from database.actions import SetOnlineStatus, GetNumOfTokenForUser, addAusbildungToTechniker
 
 
 class DatabaseService(object):
@@ -87,4 +87,7 @@ class DatabaseService(object):
 
     def getNumOfTokenForUser(self, username):
         return GetNumOfTokenForUser.execute(self.conn, username)
+
+    def addAusbildungToTechniker(self, username, ausbildung):
+        addAusbildungToTechniker.execute(self.conn, username, ausbildung)
 
