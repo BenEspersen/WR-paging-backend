@@ -9,6 +9,8 @@ def handler():
         return {"status": "error", "message": "your json request body is wrong"}
     dbService = DatabaseService()
     dbService.removeTokenFromDatabase(data.get("access_token"), data.get("token_owner"))
+    if dbService.getNumOfTokenForUser(data.get("token_owner")) == 0:
+        dbService.setOnlineStatus(data.get("token_owner"), 0)
     dbService.drop()
     return {"status": "unknown", "message": "if there was a token, its deleted now :)"}
 
