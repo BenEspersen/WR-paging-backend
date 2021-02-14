@@ -5,6 +5,7 @@ from database.actions import UpdateTechniker, FetchTechniker, AddTask, GetFreeTe
 from database.actions import GetFreeTechnikerWithAusbildungForTask, AcceptTask, SetTechnikerAuftrag
 from database.actions import ListAllTasksForTechniker, FinishTask, GetActiveTaskOfTechniker
 from database.actions import FetchAllOnlinetechniker, FetchOnlineTechnikerWithoutTask, removeTokenFromDatabase
+from database.actions import SetOnlineStatus
 
 
 class DatabaseService(object):
@@ -31,6 +32,7 @@ class DatabaseService(object):
             token = generateToken()
             owner = vorname + '.' + nachname
             AddUserToken.execute(self.conn, owner=owner, token=token)
+            self.setOnlineStatus(owner, 1)
             return True, token
         else:
             return False, None
@@ -79,4 +81,7 @@ class DatabaseService(object):
 
     def removeTokenFromDatabase(self, token, owner):
         removeTokenFromDatabase.execute(self.conn, token, owner)
+
+    def setOnlineStatus(self, username, status):
+        SetOnlineStatus.execute(self.conn, username, status)
 
