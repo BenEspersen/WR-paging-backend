@@ -11,5 +11,6 @@ class FlaskAppWrapper(object):
         print("Started Flask Server...")
         http_server.serve_forever()
 
+
     def add_endpoint(self, endpoint=None, endpoint_name=None, handler=None, methods=None):
         self.app.add_url_rule(endpoint, endpoint_name, handler, methods=methods)
