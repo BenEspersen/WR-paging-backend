@@ -3,6 +3,7 @@ from contextlib import closing
 
 def execute(conn, username):
     with closing(conn.cursor()) as cursor:
-        cursor.execute("select * from token where owner=%s", (username))
+        stmt = "select * from token where owner='" + username + "';"
+        cursor.execute(stmt)
         rows = cursor.fetchall()
     return len(rows)
